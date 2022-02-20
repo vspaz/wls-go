@@ -14,6 +14,12 @@ func TestWlsModelWithStableWeights(t *testing.T) {
 	assert.InDelta(t, 0.25, point.GetSlope(), 6)
 }
 
-func TestWlsModelWithWeights(t *testing.T) {
+func TestWlsModelWithSingleWeight(t *testing.T) {
+	x := []float64{1, 2, 3, 4, 5, 6, 7}
+	y := []float64{1, 2, 3, 4, 5, 6, 7}
+	wls := NewWlsWithEqualWeights(x, y, 0.9)
+	point := wls.FitLinearRegression()
+	assert.InDelta(t, 2.14285714, point.GetIntercept(), 6)
+	assert.InDelta(t, 0.25, point.GetSlope(), 6)
 
 }
