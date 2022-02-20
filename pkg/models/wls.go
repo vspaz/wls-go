@@ -25,8 +25,8 @@ func NewWlsWithoutWeights(x []float64, y []float64) Wls {
 }
 
 func NewWlsWithWeights(x []float64, y []float64, w []float64) Wls {
-	if len(x) != len(y) {
+	if len(x) != len(y) || len(x) != len(w) {
 		panic("the count of values doesn't match")
 	}
-	return Wls{x: x, y: y, w: w[0 : len(x)-1]}
+	return Wls{x: x, y: y, w: w}
 }
