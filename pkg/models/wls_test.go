@@ -13,3 +13,7 @@ func TestWlsModelWithStableWeights(t *testing.T) {
 	assert.InDelta(t, 2.14285714, point.GetIntercept(), 6)
 	assert.InDelta(t, 0.25, point.GetSlope(), 6)
 }
+
+func TestWlsModelWithWeights(t *testing.T) {
+
+}
