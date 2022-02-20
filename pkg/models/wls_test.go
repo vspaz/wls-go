@@ -21,5 +21,11 @@ func TestWlsModelWithSingleWeight(t *testing.T) {
 	point := wls.FitLinearRegression()
 	assert.InDelta(t, 2.14285714, point.GetIntercept(), 6)
 	assert.InDelta(t, 0.25, point.GetSlope(), 6)
+}
 
+func TestSinglePointPanic(t *testing.T) {
+	x := []float64{1}
+	y := []float64{1}
+
+	assert.Panics(t, func() { NewWlsWithoutWeights(x, y) })
 }
