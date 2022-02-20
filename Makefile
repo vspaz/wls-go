@@ -1,4 +1,4 @@
-BINARY_NAME=goat
+BINARY_NAME=wls
 
 all: build
 build:
