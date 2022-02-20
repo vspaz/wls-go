@@ -7,8 +7,8 @@ type Wls struct {
 }
 
 func populateWeights(capacity int, value float64) []float64 {
-	weights := make([]float64, capacity, capacity)
-	for idx, _ := range weights {
+	weights := make([]float64, capacity)
+	for idx := range weights {
 		weights[idx] = value
 	}
 	return weights
