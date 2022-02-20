@@ -1,4 +1,4 @@
-module github.com/vspaz/go-wls
+module github.com/vspaz/wls-go
 
 go 1.17
 
