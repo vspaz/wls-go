@@ -14,27 +14,34 @@ func populateWeights(capacity int, value float64) []float64 {
 	return weights
 }
 
-func NewWlsWithoutWeights(x []float64, y []float64) Wls {
-	if len(x) != len(y) {
+func mustHaveSameSize(sizeOne, sizeTwo int) {
+	if sizeOne != sizeTwo {
 		panic("the count of values doesn't match")
 	}
-	if len(x) < 2 {
+}
+
+func mustHaveSizeGreaterThanTwo(sequenceSize int) {
+	if sequenceSize < 2 {
 		panic("not enough points to fit linear regression")
 	}
+}
+
+func NewWlsWithoutWeights(x []float64, y []float64) Wls {
+	mustHaveSameSize(len(x), len(y))
+	mustHaveSizeGreaterThanTwo(len(x))
 	return Wls{x: x, y: y, w: populateWeights(len(x), 1.0)}
 }
 
 func NewWlsWithWeights(x []float64, y []float64, w []float64) Wls {
-	if len(x) != len(y) || len(x) != len(w) {
-		panic("the count of values doesn't match")
-	}
+	mustHaveSameSize(len(x), len(y))
+	mustHaveSameSize(len(x), len(w))
+	mustHaveSizeGreaterThanTwo(len(x))
 	return Wls{x: x, y: y, w: w}
 }
 
 func NewWlsWithEqualWeights(x []float64, y []float64, w float64) Wls {
-	if len(x) != len(y) {
-		panic("the count of values doesn't match")
-	}
+	mustHaveSameSize(len(x), len(y))
+	mustHaveSizeGreaterThanTwo(len(x))
 	return Wls{x: x, y: y, w: populateWeights(len(x), w)}
 }
 
