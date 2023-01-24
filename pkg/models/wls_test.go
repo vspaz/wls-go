@@ -28,14 +28,14 @@ func TestWlsModelWithSingleWeight(t *testing.T) {
 
 func TestWlsModelWithWeights(t *testing.T) {
 	x := []float64{1, 2, 3, 4, 5, 6, 7}
-	y := []float64{1, 2, 3, 4, 5, 6, 7}
+	y := []float64{1, 3, 4, 5, 2, 3, 4}
 	w := []float64{10, 0, 3, 4, 5, 7, 7}
 	wls := NewWlsWithWeights(x, y, w)
 	point := wls.FitLinearRegression()
 	fmt.Println(point.slope)
 	fmt.Println(point.intercept)
-	assert.InDelta(t, 0, point.GetIntercept(), 0)
-	assert.InDelta(t, 1, point.GetSlope(), 0)
+	assert.InDelta(t, 1.1433012, point.GetIntercept(), delta)
+	assert.InDelta(t, 0.3962990, point.GetSlope(), delta)
 }
 
 func TestPanicIfSequenceHasSingleValue(t *testing.T) {
