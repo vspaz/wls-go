@@ -1,9 +1,9 @@
 package models
 
 type Wls struct {
-	y []float64
-	x []float64
-	w []float64
+	y_points []float64
+	x_points []float64
+	weights  []float64
 }
 
 func populateWeights(capacity int, value float64) []float64 {
@@ -26,23 +26,23 @@ func mustHaveSizeGreaterThanTwo(sequenceSize int) {
 	}
 }
 
-func NewWlsWithoutWeights(x []float64, y []float64) Wls {
-	mustHaveSameSize(len(x), len(y))
-	mustHaveSizeGreaterThanTwo(len(x))
-	return Wls{x: x, y: y, w: populateWeights(len(x), 1.0)}
+func NewWlsWithoutWeights(x_points []float64, y_points []float64) Wls {
+	mustHaveSameSize(len(x_points), len(y_points))
+	mustHaveSizeGreaterThanTwo(len(x_points))
+	return Wls{x_points: x_points, y_points: y_points, weights: populateWeights(len(x_points), 1.0)}
 }
 
-func NewWlsWithWeights(x []float64, y []float64, w []float64) Wls {
-	mustHaveSameSize(len(x), len(y))
-	mustHaveSameSize(len(x), len(w))
-	mustHaveSizeGreaterThanTwo(len(x))
-	return Wls{x: x, y: y, w: w}
+func NewWlsWithWeights(x_points []float64, y_points []float64, weights []float64) Wls {
+	mustHaveSameSize(len(x_points), len(y_points))
+	mustHaveSameSize(len(x_points), len(weights))
+	mustHaveSizeGreaterThanTwo(len(x_points))
+	return Wls{x_points: x_points, y_points: y_points, weights: weights}
 }
 
-func NewWlsWithEqualWeights(x []float64, y []float64, w float64) Wls {
-	mustHaveSameSize(len(x), len(y))
-	mustHaveSizeGreaterThanTwo(len(x))
-	return Wls{x: x, y: y, w: populateWeights(len(x), w)}
+func NewWlsWithEqualWeights(x_points []float64, y_points []float64, weights float64) Wls {
+	mustHaveSameSize(len(x_points), len(y_points))
+	mustHaveSizeGreaterThanTwo(len(x_points))
+	return Wls{x_points: x_points, y_points: y_points, weights: populateWeights(len(x_points), weights)}
 }
 
 func (wls *Wls) FitLinearRegression() *Point {
@@ -53,10 +53,10 @@ func (wls *Wls) FitLinearRegression() *Point {
 	sumOfYByWeights := 0.0
 
 	var xi, yi, wi, xiByWi float64
-	for i := 0; i < len(wls.x); i++ {
-		xi = wls.x[i]
-		yi = wls.y[i]
-		wi = wls.w[i]
+	for i := 0; i < len(wls.x_points); i++ {
+		xi = wls.x_points[i]
+		yi = wls.y_points[i]
+		wi = wls.weights[i]
 
 		sumOfWeights += wi
 		xiByWi = xi * wi
