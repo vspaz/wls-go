@@ -45,6 +45,16 @@ func TestRunUphillOk(t *testing.T) {
 	assert.Equal(t, 1.0, point.GetSlope())
 }
 
+func TestRunDownhillOk(t *testing.T) {
+	x := []float64{1.0, 0.0}
+	y := []float64{0.0, 1.0}
+
+	wls := NewWlsWithEqualWeights(x, y, 1)
+	point := wls.FitLinearRegression()
+	assert.Equal(t, 1.0, point.GetIntercept())
+	assert.Equal(t, -1.0, point.GetSlope())
+}
+
 func TestPanicIfSequenceHasSingleValue(t *testing.T) {
 	x := []float64{1}
 	y := []float64{1}
