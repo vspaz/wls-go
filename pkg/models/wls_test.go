@@ -1,7 +1,6 @@
 package models
 
 import (
-	"fmt"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -32,10 +31,18 @@ func TestWlsModelWithWeights(t *testing.T) {
 	w := []float64{10, 0, 3, 4, 5, 7, 7}
 	wls := NewWlsWithWeights(x, y, w)
 	point := wls.FitLinearRegression()
-	fmt.Println(point.slope)
-	fmt.Println(point.intercept)
 	assert.InDelta(t, 1.1433012, point.GetIntercept(), delta)
 	assert.InDelta(t, 0.3962990, point.GetSlope(), delta)
+}
+
+func TestRunUphillOk(t *testing.T) {
+	x := []float64{0.0, 1.0}
+	y := []float64{0.0, 1.0}
+
+	wls := NewWlsWithEqualWeights(x, y, 1)
+	point := wls.FitLinearRegression()
+	assert.Equal(t, 0.0, point.GetIntercept())
+	assert.Equal(t, 1.0, point.GetSlope())
 }
 
 func TestPanicIfSequenceHasSingleValue(t *testing.T) {
