@@ -35,6 +35,16 @@ func TestWlsModelWithWeights(t *testing.T) {
 	assert.InDelta(t, 0.3962990, point.GetSlope(), delta)
 }
 
+func TestHorizontalLineOk(t *testing.T) {
+	x := []float64{0.0, 1.0}
+	y := []float64{10.0, 10.0}
+
+	wls := NewWlsWithEqualWeights(x, y, 1)
+	point := wls.FitLinearRegression()
+	assert.Equal(t, 10.0, point.GetIntercept())
+	assert.Equal(t, 0.0, point.GetSlope())
+}
+
 func TestRunUphillOk(t *testing.T) {
 	x := []float64{0.0, 1.0}
 	y := []float64{0.0, 1.0}
