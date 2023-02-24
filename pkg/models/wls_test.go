@@ -19,7 +19,7 @@ func TestWlsModelWithStableWeights(t *testing.T) {
 func TestWlsModelWithSingleWeight(t *testing.T) {
 	x := []float64{1, 2, 3, 4, 5, 6, 7}
 	y := []float64{1, 3, 4, 5, 2, 3, 4}
-	wls := NewWlsWithEqualWeights(x, y, 0.9)
+	wls := NewWlsWithStableWeights(x, y, 0.9)
 	point := wls.FitLinearRegression()
 	assert.InDelta(t, 2.14285714, point.GetIntercept(), delta)
 	assert.InDelta(t, 0.25, point.GetSlope(), delta)
@@ -39,7 +39,7 @@ func TestHorizontalLineOk(t *testing.T) {
 	x := []float64{0.0, 1.0}
 	y := []float64{10.0, 10.0}
 
-	wls := NewWlsWithEqualWeights(x, y, 1)
+	wls := NewWlsWithStableWeights(x, y, 1)
 	point := wls.FitLinearRegression()
 	assert.Equal(t, 10.0, point.GetIntercept())
 	assert.Equal(t, 0.0, point.GetSlope())
@@ -49,7 +49,7 @@ func TestRunUphillOk(t *testing.T) {
 	x := []float64{0.0, 1.0}
 	y := []float64{0.0, 1.0}
 
-	wls := NewWlsWithEqualWeights(x, y, 1)
+	wls := NewWlsWithStableWeights(x, y, 1)
 	point := wls.FitLinearRegression()
 	assert.Equal(t, 0.0, point.GetIntercept())
 	assert.Equal(t, 1.0, point.GetSlope())
@@ -59,7 +59,7 @@ func TestRunDownhillOk(t *testing.T) {
 	x := []float64{1.0, 0.0}
 	y := []float64{0.0, 1.0}
 
-	wls := NewWlsWithEqualWeights(x, y, 1)
+	wls := NewWlsWithStableWeights(x, y, 1)
 	point := wls.FitLinearRegression()
 	assert.Equal(t, 1.0, point.GetIntercept())
 	assert.Equal(t, -1.0, point.GetSlope())

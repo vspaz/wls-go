@@ -39,7 +39,7 @@ func NewWlsWithWeights(x_points []float64, y_points []float64, weights []float64
 	return Wls{x_points: x_points, y_points: y_points, weights: weights}
 }
 
-func NewWlsWithEqualWeights(x_points []float64, y_points []float64, weights float64) Wls {
+func NewWlsWithStableWeights(x_points []float64, y_points []float64, weights float64) Wls {
 	mustHaveSameSize(len(x_points), len(y_points))
 	mustHaveSizeGreaterThanTwo(len(x_points))
 	return Wls{x_points: x_points, y_points: y_points, weights: populateWeights(len(x_points), weights)}
