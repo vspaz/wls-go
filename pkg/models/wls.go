@@ -88,8 +88,5 @@ func (wls *Wls[X, Y, W]) FitLinearRegression() *Point {
 	slope := dividend / divisor
 	intercept := (sumOfYByWeights - slope*sumOfXByWeights) / sumOfWeights
 
-	return &Point{
-		intercept: intercept,
-		slope:     slope,
-	}
+	return NewPoint(intercept, slope)
 }

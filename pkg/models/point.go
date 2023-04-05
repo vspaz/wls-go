@@ -5,8 +5,8 @@ type Point struct {
 	slope     float64
 }
 
-func NewPoint(intercept, slope float64) Point {
-	return Point{
+func NewPoint(intercept, slope float64) *Point {
+	return &Point{
 		intercept: intercept,
 		slope:     slope,
 	}
