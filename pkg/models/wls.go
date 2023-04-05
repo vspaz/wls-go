@@ -13,9 +13,9 @@ type wTimePoint interface {
 }
 
 type Wls[X xTimePoint, Y yTimePoint, W wTimePoint] struct {
-	x_points []X
-	y_points []Y
-	weights  []W
+	xPoints []X
+	yPoints []Y
+	weights []W
 }
 
 func populateWeights[T wTimePoint](capacity int, value T) []T {
@@ -38,23 +38,23 @@ func mustHaveSizeGreaterThanTwo(sequenceSize int) {
 	}
 }
 
-func NewWlsWithoutWeights[X xTimePoint, Y yTimePoint](x_points []X, y_points []Y) Wls[X, Y, X] {
-	mustHaveSameSize(len(x_points), len(y_points))
-	mustHaveSizeGreaterThanTwo(len(x_points))
-	return Wls[X, Y, X]{x_points: x_points, y_points: y_points, weights: populateWeights[X](len(x_points), 1.0)}
+func NewWlsWithoutWeights[X xTimePoint, Y yTimePoint](xPoints []X, yPoints []Y) Wls[X, Y, X] {
+	mustHaveSameSize(len(xPoints), len(yPoints))
+	mustHaveSizeGreaterThanTwo(len(xPoints))
+	return Wls[X, Y, X]{xPoints: xPoints, yPoints: yPoints, weights: populateWeights[X](len(xPoints), 1.0)}
 }
 
-func NewWlsWithWeights[X xTimePoint, Y yTimePoint, W wTimePoint](x_points []X, y_points []Y, weights []W) Wls[X, Y, W] {
-	mustHaveSameSize(len(x_points), len(y_points))
-	mustHaveSameSize(len(x_points), len(weights))
-	mustHaveSizeGreaterThanTwo(len(x_points))
-	return Wls[X, Y, W]{x_points: x_points, y_points: y_points, weights: weights}
+func NewWlsWithWeights[X xTimePoint, Y yTimePoint, W wTimePoint](xPoints []X, yPoints []Y, weights []W) Wls[X, Y, W] {
+	mustHaveSameSize(len(xPoints), len(yPoints))
+	mustHaveSameSize(len(xPoints), len(weights))
+	mustHaveSizeGreaterThanTwo(len(xPoints))
+	return Wls[X, Y, W]{xPoints: xPoints, yPoints: yPoints, weights: weights}
 }
 
-func NewWlsWithStableWeights[X xTimePoint, Y yTimePoint, W wTimePoint](x_points []X, y_points []Y, weights W) Wls[X, Y, W] {
-	mustHaveSameSize(len(x_points), len(y_points))
-	mustHaveSizeGreaterThanTwo(len(x_points))
-	return Wls[X, Y, W]{x_points: x_points, y_points: y_points, weights: populateWeights[W](len(x_points), weights)}
+func NewWlsWithStableWeights[X xTimePoint, Y yTimePoint, W wTimePoint](xPoints []X, yPoints []Y, weights W) Wls[X, Y, W] {
+	mustHaveSameSize(len(xPoints), len(yPoints))
+	mustHaveSizeGreaterThanTwo(len(xPoints))
+	return Wls[X, Y, W]{xPoints: xPoints, yPoints: yPoints, weights: populateWeights[W](len(xPoints), weights)}
 }
 
 func (wls *Wls[X, Y, W]) FitLinearRegression() *Point {
@@ -65,9 +65,9 @@ func (wls *Wls[X, Y, W]) FitLinearRegression() *Point {
 	sumOfYByWeights := 0.0
 
 	var xi, yi, wi, xiByWi float64
-	for i := 0; i < len(wls.x_points); i++ {
-		xi = float64(wls.x_points[i])
-		yi = float64(wls.y_points[i])
+	for i := 0; i < len(wls.xPoints); i++ {
+		xi = float64(wls.xPoints[i])
+		yi = float64(wls.yPoints[i])
 		wi = float64(wls.weights[i])
 
 		sumOfWeights += wi
