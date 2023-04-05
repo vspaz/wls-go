@@ -6,6 +6,10 @@ type Wls struct {
 	weights  []float64
 }
 
+type TimePoint interface {
+	int8 | int16 | int32 | int | int64 | float32 | float64
+}
+
 func populateWeights(capacity int, value float64) []float64 {
 	weights := make([]float64, capacity)
 	for idx := range weights {
