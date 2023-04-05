@@ -18,8 +18,8 @@ type Wls[X xTimePoint, Y yTimePoint, W wTimePoint] struct {
 	weights  []W
 }
 
-func populateWeights[W wTimePoint](capacity int, value W) []W {
-	weights := make([]W, capacity)
+func populateWeights[T wTimePoint](capacity int, value T) []T {
+	weights := make([]T, capacity)
 	for idx := range weights {
 		weights[idx] = value
 	}
